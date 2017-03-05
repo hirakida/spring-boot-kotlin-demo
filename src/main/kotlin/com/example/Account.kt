@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "account")
 @EntityListeners(AuditingEntityListener::class)
-class Account() {
+class Account {
     @Id
     @GeneratedValue
     val id: Int = 0
@@ -23,5 +23,5 @@ class Account() {
 
     @LastModifiedDate
     @Column(nullable = false)
-    val updatedAt: LocalDateTime = LocalDateTime.MIN
+    var updatedAt: LocalDateTime = LocalDateTime.MIN
 }

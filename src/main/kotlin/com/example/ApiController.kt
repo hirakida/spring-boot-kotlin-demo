@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController
 class ApiController(val accountRepository: AccountRepository) {
 
     @GetMapping("/api/accounts")
-    fun account()
+    fun accounts() : List<Account>
             = accountRepository.findAll()
 
     @GetMapping("/api/accounts/{id}")
-    fun account(@PathVariable id: Int)
+    fun account(@PathVariable id: Int) : Account
             = accountRepository.findOne(id)
 }
