@@ -1,8 +1,10 @@
 buildscript {
     ext {
-        kotlinVersion = '1.1.1'
-        springBootVersion = '1.5.2.RELEASE'
+        kotlinVersion = '1.1.2-2'
+        springBootVersion = '1.5.4.RELEASE'
         bootStrapVersion = '3.3.7'
+        mybatisSpringBootStarterVersion = '1.3.0'
+        mybatisTypehandlersJsr310Version = '1.0.2'
     }
     repositories {
         mavenCentral()
@@ -14,30 +16,53 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
-apply plugin: 'org.springframework.boot'
+group 'com.example'
+version '0.0.1-SNAPSHOT'
 
-jar {
-    baseName = 'web-sample'
-    version = '0.0.1-SNAPSHOT'
+subprojects {
+    apply plugin: 'kotlin'
+    apply plugin: 'kotlin-spring'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+        compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
+        compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+        compile("org.webjars:webjars-locator")
+        compile("org.webjars:bootstrap:${bootStrapVersion}")
+        runtime("com.h2database:h2")
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
 }
 
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
+project(':jpa') {
+    jar {
+        baseName = 'jpa'
+        version = '0.0.1-SNAPSHOT'
+    }
+    dependencies {
+        dependencies {
+            compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        }
+    }
 }
 
-
-dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
-    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    compile("org.webjars:webjars-locator")
-    compile("org.webjars:bootstrap:${bootStrapVersion}")
-    runtime("com.h2database:h2")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+project(':mybatis') {
+    jar {
+        baseName = 'mybatis'
+        version = '0.0.1-SNAPSHOT'
+    }
+    dependencies {
+        dependencies {
+            compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}")
+//            compile("org.mybatis:mybatis-typehandlers-jsr310:${mybatisTypehandlersJsr310Version}")
+        }
+    }
 }
