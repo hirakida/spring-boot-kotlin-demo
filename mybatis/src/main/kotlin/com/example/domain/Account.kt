@@ -1,8 +1,8 @@
 package com.example.domain
 
-import java.sql.Timestamp
+import java.time.LocalDateTime
 
-data class Account(var id: Int,
-                   var name: String,
-                   var createdAt: Timestamp,
-                   var updatedAt: Timestamp)
+data class Account(var id: Int = 0,
+                   var name: String = "",
+                   var createdAt: LocalDateTime = LocalDateTime.MIN,
+                   var updatedAt: LocalDateTime = LocalDateTime.MIN)
