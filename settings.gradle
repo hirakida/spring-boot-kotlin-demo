@@ -1,1 +1,2 @@
-include 'jpa', 'mybatis'
+rootProject.name = 'spring-boot-kotlin-demo'
+include 'demo-jpa', 'demo-mybatis', 'demo-core'

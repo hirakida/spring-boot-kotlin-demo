@@ -1,0 +1,11 @@
+DELETE FROM account;
+INSERT INTO account(id, name, created_at, updated_at) VALUES (1, 'user1', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (2, 'user2', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (3, 'user3', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (4, 'user4', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (5, 'user5', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (6, 'user6', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (7, 'user7', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (8, 'user8', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (9, 'user9', NOW(), NOW());
+INSERT INTO account(id, name, created_at, updated_at) VALUES (10, 'user10', NOW(), NOW());

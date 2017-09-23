@@ -2,7 +2,6 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 libraries
-inspectionProfiles
 
 ### STS ###
 .apt_generated
@@ -25,5 +24,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
-out
