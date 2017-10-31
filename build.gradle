@@ -1,13 +1,14 @@
 buildscript {
     ext {
         kotlinVersion = '1.1.50'
-        springBootVersion = '1.5.7.RELEASE'
+        springBootVersion = '1.5.8.RELEASE'
         bootStrapVersion = '3.3.7'
         mybatisSpringBootStarterVersion = '1.3.0'
         mybatisTypehandlersJsr310Version = '1.0.2'
     }
     repositories {
         mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -16,8 +17,10 @@ buildscript {
     }
 }
 
-group 'com.example'
-version '0.0.1-SNAPSHOT'
+allprojects {
+    group 'com.example'
+    version '0.0.1-SNAPSHOT'
+}
 
 subprojects {
     apply plugin: 'kotlin'
@@ -27,50 +30,66 @@ subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
     repositories {
         mavenCentral()
     }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        }
+        dependencies {
+            dependency "org.webjars:bootstrap:${bootStrapVersion}"
+            dependency "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}"
+            dependency "org.mybatis:mybatis-typehandlers-jsr310:${mybatisTypehandlersJsr310Version}"
+        }
+    }
+
     dependencies {
-        compile('org.springframework.boot:spring-boot-starter-web')
-        compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-        compile('org.springframework.boot:spring-boot-starter-actuator')
         compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
         compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-        compile('org.webjars:webjars-locator')
-        compile("org.webjars:bootstrap:${bootStrapVersion}")
+        compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
         runtime('com.h2database:h2')
-        runtime('org.springframework.boot:spring-boot-devtools')
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 }
 
-project(':demo-core') {
+project(':core') {
     bootRepackage.enabled = false
 }
 
-project(':demo-jpa') {
+project(':jpa') {
     jar {
-        baseName = 'jpa'
-        version = '0.0.1-SNAPSHOT'
+        baseName = 'jpa-demo'
     }
+
     dependencies {
-        dependencies {
-            compile project(':demo-core')
-            compile('org.springframework.boot:spring-boot-starter-data-jpa')
-        }
+        compile project(':core')
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+        compile('org.webjars:webjars-locator')
+        compile('org.webjars:bootstrap')
+        runtime('org.springframework.boot:spring-boot-devtools')
     }
 }
 
-project(':demo-mybatis') {
+project(':mybatis') {
     jar {
-        baseName = 'mybatis'
-        version = '0.0.1-SNAPSHOT'
+        baseName = 'mybatis-demo'
     }
+
     dependencies {
-        dependencies {
-            compile project(':demo-core')
-            compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVersion}")
-            compile("org.mybatis:mybatis-typehandlers-jsr310:${mybatisTypehandlersJsr310Version}")
-        }
+        compile project(':core')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.mybatis.spring.boot:mybatis-spring-boot-starter')
+        compile('org.mybatis:mybatis-typehandlers-jsr310')
+        runtime('org.springframework.boot:spring-boot-devtools')
     }
 }
