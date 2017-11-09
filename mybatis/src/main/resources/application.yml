@@ -9,4 +9,5 @@ spring:
     ansi:
       enabled: always
 mybatis:
-  config-location: classpath:/mybatis-config.xml
+  configuration:
+    map-underscore-to-camel-case: true
