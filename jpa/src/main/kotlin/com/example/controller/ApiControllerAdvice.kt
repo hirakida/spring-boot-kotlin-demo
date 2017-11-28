@@ -1,4 +1,4 @@
-package com.example.web
+package com.example.controller
 
 import com.example.exception.DataNotFoundException
 import org.springframework.http.HttpStatus

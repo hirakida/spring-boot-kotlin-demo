@@ -1,4 +1,4 @@
-package com.example.domain
+package com.example.mapper
 
 import java.sql.Timestamp
 import java.time.LocalDateTime

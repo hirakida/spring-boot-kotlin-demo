@@ -1,7 +1,7 @@
-package com.example.web
+package com.example.controller
 
-import com.example.domain.Account
-import com.example.domain.AccountRepository
+import com.example.entity.Account
+import com.example.mapper.AccountRepository
 import com.example.exception.DataNotFoundException
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping

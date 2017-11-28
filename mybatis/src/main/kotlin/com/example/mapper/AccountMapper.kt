@@ -1,5 +1,6 @@
-package com.example.domain
+package com.example.mapper
 
+import com.example.entity.Account
 import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Mapper
