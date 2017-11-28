@@ -59,8 +59,8 @@ subprojects {
         compile('org.jetbrains.kotlin:kotlin-stdlib-jre8')
         compile('org.jetbrains.kotlin:kotlin-reflect')
         compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
+//        compile('com.fasterxml.jackson.module:jackson-module-kotlin')
         runtime('com.h2database:h2')
-        testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 }
 
@@ -82,6 +82,7 @@ project(':jpa') {
         compile('org.webjars:webjars-locator')
         compile('org.webjars:bootstrap')
         runtime('org.springframework.boot:spring-boot-devtools')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 }
 
@@ -97,5 +98,6 @@ project(':mybatis') {
         compile('org.mybatis.spring.boot:mybatis-spring-boot-starter')
         compile('org.mybatis:mybatis-typehandlers-jsr310')
         runtime('org.springframework.boot:spring-boot-devtools')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 }
