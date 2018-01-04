@@ -1,7 +1,5 @@
-package com.example.controller
+package com.example
 
-import com.example.entity.Account
-import com.example.mapper.AccountMapper
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

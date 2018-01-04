@@ -1,6 +1,5 @@
-package com.example.mapper
+package com.example
 
-import com.example.entity.Account
 import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Mapper
