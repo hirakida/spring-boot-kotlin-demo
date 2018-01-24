@@ -1,6 +1,6 @@
 package com.example.controller
 
-import com.example.mapper.AccountRepository
+import com.example.repository.AccountRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping

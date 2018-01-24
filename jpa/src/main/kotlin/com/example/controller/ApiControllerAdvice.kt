@@ -1,6 +1,6 @@
 package com.example.controller
 
-import com.example.exception.DataNotFoundException
+import com.example.support.DataNotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-
 
 @ControllerAdvice
 class ApiControllerAdvice : ResponseEntityExceptionHandler() {
@@ -21,10 +20,6 @@ class ApiControllerAdvice : ResponseEntityExceptionHandler() {
     @ExceptionHandler(DataNotFoundException::class)
     fun handleDataNotFoundException(e: DataNotFoundException, request: WebRequest): ResponseEntity<Any> {
         log.warn(e.toString())
-        val response = ErrorResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.reasonPhrase)
-        return handleExceptionInternal(e, response, null, HttpStatus.OK, request)
+        return handleExceptionInternal(e, null, null, HttpStatus.NOT_FOUND, request)
     }
-
-    data class ErrorResponse(var errorCode: Int = 0,
-                             var errorMessage: String = "")
 }
