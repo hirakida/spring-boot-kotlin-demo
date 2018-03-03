@@ -10,24 +10,25 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/api")
 class ApiController(val accountMapper: AccountMapper) {
 
     @GetMapping("/accounts")
-    fun findAll(): List<Account>
-            = accountMapper.findAll()
+    fun findAll(): List<Account> = accountMapper.findAll()
 
     @GetMapping("/accounts/{id}")
-    fun findOne(@PathVariable id: Int): Account
-            = accountMapper.findOne(id)
+    fun findById(@PathVariable id: Int): Account {
+        return accountMapper.findById(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    }
 
     @PostMapping("/accounts")
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody account: Account): Account {
         accountMapper.insert(account)
-        return accountMapper.findOne(account.id)
+        return accountMapper.findById(account.id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
     }
 
     @PutMapping("/accounts/{id}")

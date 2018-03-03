@@ -14,13 +14,13 @@ interface AccountMapper {
             SELECT id, name, created_at, updated_at FROM account
             WHERE id=#{id}
     """)
-    fun findOne(id: Int): Account
+    fun findById(id: Int): Account?
 
     @Select("""
             SELECT id, name, created_at, updated_at FROM account
             where name=#{name}
     """)
-    fun findByName(name: String): Account
+    fun findByName(name: String): Account?
 
     @Select("SELECT id, name, created_at, updated_at FROM account")
     fun findAll(): List<Account>

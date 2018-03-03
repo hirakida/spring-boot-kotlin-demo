@@ -11,6 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  jackson:
-    serialization:
-      WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false
+    open-in-view: false
+#  jackson:
+#    serialization:
+#      WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false

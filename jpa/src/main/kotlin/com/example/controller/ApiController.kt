@@ -23,8 +23,8 @@ class ApiController(val accountService: AccountService,
     fun findAll(): List<Account> = accountRepository.findAll()
 
     @GetMapping("/accounts/{id}")
-    fun find(@PathVariable id: Int): Account
-            = accountService.findOne(id)
+    fun findById(@PathVariable id: Int): Account
+            = accountService.findById(id)
 
     @PostMapping("/accounts")
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,14 +36,14 @@ class ApiController(val accountService: AccountService,
     @PutMapping("/accounts/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Int, @RequestBody request: AccountRequest) {
-        val account = accountService.findOne(id)
+        val account = accountService.findById(id)
         accountRepository.save(account.copy(name = request.name))
     }
 
     @DeleteMapping("/accounts/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Int) {
-        val account = accountService.findOne(id)
+        val account = accountService.findById(id)
         accountRepository.delete(account)
     }
 
