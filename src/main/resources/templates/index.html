@@ -3,9 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>account</title>
+  <title>index</title>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
 <div class="container">
@@ -14,16 +14,18 @@
     <tr>
       <th>id</th>
       <th>name</th>
+      <th>age</th>
       <th>createdAt</th>
       <th>updatedAt</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="account : ${accounts}">
-      <td th:text="${account.id}"></td>
-      <td th:text="${account.name}"></td>
-      <td th:text="${account.createdAt}"></td>
-      <td th:text="${account.updatedAt}"></td>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.age}"></td>
+      <td th:text="${user.createdAt}"></td>
+      <td th:text="${user.updatedAt}"></td>
     </tr>
     </tbody>
   </table>

@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.50'
-        springBootVersion = '2.0.3.RELEASE'
+        kotlinVersion = '1.3.10'
+        springBootVersion = '2.1.0.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -14,73 +14,36 @@ buildscript {
     }
 }
 
-subprojects {
-    apply plugin: 'kotlin'
-    apply plugin: 'kotlin-spring'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
-    group 'com.example'
-    version '0.0.1-SNAPSHOT'
+group 'com.example'
+version '0.0.1-SNAPSHOT'
 
-    sourceCompatibility = 1.8
+sourceCompatibility = 1.8
 
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            javaParameters = true
-        }
-    }
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
-        }
-        dependencies {
-            dependency "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}"
-            dependency "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-            dependency 'org.webjars:bootstrap:4.0.0'
-            dependency 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1'
-            dependency 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
-        }
-    }
-
-    dependencies {
-        compile('org.jetbrains.kotlin:kotlin-stdlib-jre8')
-        compile('org.jetbrains.kotlin:kotlin-reflect')
-        compile('com.fasterxml.jackson.module:jackson-module-kotlin')
-        runtime('com.h2database:h2')
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        javaParameters = true
     }
 }
 
-project(':jpa') {
-    jar.baseName = 'jpa-demo'
-
-    dependencies {
-        compile('org.springframework.boot:spring-boot-starter-data-jpa')
-        compile('org.springframework.boot:spring-boot-starter-web')
-        compile('org.springframework.boot:spring-boot-starter-actuator')
-        compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-        compile('org.webjars:webjars-locator-core')
-        compile('org.webjars:bootstrap')
-        runtime('org.springframework.boot:spring-boot-devtools')
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-    }
+repositories {
+    mavenCentral()
 }
 
-project(':mybatis') {
-    jar.baseName = 'mybatis-demo'
-
-    dependencies {
-        compile('org.springframework.boot:spring-boot-starter-web')
-        compile('org.springframework.boot:spring-boot-starter-actuator')
-        compile('org.mybatis.spring.boot:mybatis-spring-boot-starter')
-        compile('org.mybatis:mybatis-typehandlers-jsr310')
-        runtime('org.springframework.boot:spring-boot-devtools')
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-    }
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
+    implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+    implementation('org.webjars:webjars-locator-core')
+    implementation('org.webjars:bootstrap:4.1.3')
+    runtimeOnly('com.h2database:h2')
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

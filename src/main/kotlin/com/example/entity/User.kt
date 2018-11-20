@@ -4,21 +4,20 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.EntityListeners
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
-data class Account(
+data class User(
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Int = 0,
 
         @Column(nullable = false)
         var name: String = "",
+
+        @Column(nullable = false)
+        var age: Byte = 0,
 
         @CreatedDate
         @Column(nullable = false, updatable = false)
