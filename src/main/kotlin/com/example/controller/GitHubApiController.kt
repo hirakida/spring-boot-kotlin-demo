@@ -1,9 +1,9 @@
 package com.example.controller
 
 import com.example.client.GitHubApiClient
-import com.example.model.Email
-import com.example.model.Follow
-import com.example.model.User
+import com.example.client.model.Email
+import com.example.client.model.Follow
+import com.example.client.model.User
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

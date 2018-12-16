@@ -1,4 +1,4 @@
-package com.example.model
+package com.example.client.model
 
 data class Email(
         val email: String,

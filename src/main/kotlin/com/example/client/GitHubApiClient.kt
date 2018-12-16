@@ -1,9 +1,9 @@
 package com.example.client
 
+import com.example.client.model.Email
+import com.example.client.model.Follow
+import com.example.client.model.User
 import com.example.config.AppProperties
-import com.example.model.Email
-import com.example.model.Follow
-import com.example.model.User
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
