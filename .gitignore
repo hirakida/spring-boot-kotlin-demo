@@ -1,26 +1,4 @@
 .gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
-libraries
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
-### IntelliJ IDEA ###
+build
 .idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
+application-local.yml

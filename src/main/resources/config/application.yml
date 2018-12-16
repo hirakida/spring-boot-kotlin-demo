@@ -12,3 +12,7 @@ spring:
   output:
     ansi:
       enabled: always
+
+app:
+  user_scope:
+    token: xxxxxxxxxx

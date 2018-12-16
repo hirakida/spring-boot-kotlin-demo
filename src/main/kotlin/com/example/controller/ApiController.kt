@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty
 
 @RestController
 @RequestMapping("/api")
-class ApiController(val userService: UserService) {
+class ApiController(private val userService: UserService) {
 
     @GetMapping("/users")
     fun findAll(): List<User> = userService.findAll()

@@ -6,7 +6,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class WebController(val userRepository: UserRepository) {
+class WebController(private val userRepository: UserRepository) {
 
     @GetMapping("/")
     fun index(model: Model): String {
