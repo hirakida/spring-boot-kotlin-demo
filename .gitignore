@@ -1,4 +1,4 @@
 .gradle
 build
 .idea
-application-local.yml
+application-default.yml

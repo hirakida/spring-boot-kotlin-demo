@@ -1,13 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinVersion = "1.3.10"
-    val springBootVersion = "2.1.1.RELEASE"
+    val kotlinVersion = "1.3.21"
+    val springBootVersion = "2.1.3.RELEASE"
     id("org.springframework.boot") version springBootVersion
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("io.spring.dependency-management") version "1.0.6.RELEASE"
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
@@ -33,7 +34,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.webjars:webjars-locator-core")
-    implementation("org.webjars:bootstrap:4.1.3") {
+    implementation("org.webjars:bootstrap:4.3.1") {
         exclude(module = "jquery")
     }
     runtimeOnly("com.h2database:h2")

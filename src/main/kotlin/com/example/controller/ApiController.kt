@@ -1,7 +1,7 @@
 package com.example.controller
 
-import com.example.entity.User
-import com.example.service.UserService
+import com.example.core.entity.User
+import com.example.core.service.UserService
 import org.hibernate.validator.constraints.Range
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

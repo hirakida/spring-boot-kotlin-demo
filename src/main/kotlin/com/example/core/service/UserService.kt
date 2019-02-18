@@ -1,7 +1,7 @@
-package com.example.service
+package com.example.core.service
 
-import com.example.entity.User
-import com.example.repository.UserRepository
+import com.example.core.entity.User
+import com.example.core.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service

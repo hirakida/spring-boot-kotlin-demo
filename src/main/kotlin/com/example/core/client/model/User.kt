@@ -1,4 +1,4 @@
-package com.example.client.model
+package com.example.core.client.model
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.annotation.JsonNaming
@@ -43,11 +43,4 @@ data class User(
         val collaborators: Long,
         val twoFactorAuthentication: Boolean,
         val plan: Plan?
-)
-
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
-data class Plan(val name: String,
-                val space: Long,
-                val privateRepos: Long,
-                val collaborators: Long
 )
