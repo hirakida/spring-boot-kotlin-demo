@@ -1,11 +1,16 @@
 package com.example
 
 import org.springframework.boot.WebApplicationType
+import org.springframework.boot.logging.LogLevel
 import org.springframework.fu.kofu.application
 import org.springframework.fu.kofu.webflux.webFlux
 
 val app = application(WebApplicationType.REACTIVE) {
+    logging {
+        level = LogLevel.INFO
+    }
     beans {
+        bean(::routes)
         bean<RootHandler>()
         bean<UserHandler>()
         bean<UserService>()
@@ -15,13 +20,6 @@ val app = application(WebApplicationType.REACTIVE) {
         codecs {
             string()
             jackson()
-        }
-        router {
-            val rootHandler = ref<RootHandler>()
-            val userHandler = ref<UserHandler>()
-            GET("/", rootHandler::hello)
-            GET("/users", userHandler::findAll)
-            GET("/users/{id}", userHandler::findById)
         }
     }
 }
