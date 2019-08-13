@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>index</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+      <th>Instant</th>
+      <td th:text="${instant}"></td>
+    </tr>
+    <tr>
+      <th>LocalDateTime</th>
+      <td th:text="${localDateTime}"></td>
+    </tr>
+    <tr>
+      <th>OffsetDateTime</th>
+      <td th:text="${offsetDateTime}"></td>
+    </tr>
+    <tr>
+      <th>ZonedDateTime</th>
+      <td th:text="${zonedDateTime}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
