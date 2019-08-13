@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Update
 @Mapper
 interface UserMapper {
 
+    @Select("SELECT id, name, created_at, updated_at FROM user")
+    fun findAll(): List<User>
+
     @Select("""
             SELECT id, name, created_at, updated_at FROM user
             WHERE id=#{id}
@@ -21,9 +24,6 @@ interface UserMapper {
             WHERE name=#{name}
     """)
     fun findByName(name: String): User?
-
-    @Select("SELECT id, name, created_at, updated_at FROM user")
-    fun findAll(): List<User>
 
     @Insert("INSERT INTO user(name, created_at, updated_at) VALUES(#{name}, NOW(), NOW())")
     @Options(useGeneratedKeys = true)

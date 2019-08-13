@@ -1,6 +1,6 @@
 package com.example
 
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,7 +20,7 @@ class ApiController(private val userMapper: UserMapper) {
 
     @GetMapping("/users/{id}")
     fun findById(@PathVariable id: Long): User =
-            userMapper.findById(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+            userMapper.findById(id) ?: throw ResponseStatusException(NOT_FOUND)
 
     @PostMapping("/users")
     fun create(@RequestBody @Validated request: Request): Int {
@@ -30,7 +30,7 @@ class ApiController(private val userMapper: UserMapper) {
 
     @PutMapping("/users/{id}")
     fun update(@PathVariable id: Long, @RequestBody @Validated request: Request): Int {
-        val user: User = userMapper.findById(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        val user: User = userMapper.findById(id) ?: throw ResponseStatusException(NOT_FOUND)
         user.name = request.name
         return userMapper.update(user)
     }
