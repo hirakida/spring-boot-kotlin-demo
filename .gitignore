@@ -1,4 +1,6 @@
+*.iml
 .gradle
 build
 out
+target
 application-default.yml
