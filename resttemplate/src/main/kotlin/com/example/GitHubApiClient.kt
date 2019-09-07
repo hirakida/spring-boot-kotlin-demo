@@ -6,12 +6,10 @@ import com.example.model.User
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.web.client.exchange
 import org.springframework.web.client.getForObject
-import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.util.UriComponentsBuilder
 
 @Component
@@ -28,7 +26,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .path("/user")
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
-        return restTemplate.getForObject(url) ?: throw  ResponseStatusException(HttpStatus.NOT_FOUND)
+        return restTemplate.getForObject(url) ?: throw NoSuchElementException()
     }
 
     fun getUser(username: String): User {
@@ -36,7 +34,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .path("/users/{username}")
                 .buildAndExpand(username)
                 .toUriString()
-        return restTemplate.getForObject(url) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return restTemplate.getForObject(url) ?: throw NoSuchElementException()
     }
 
     fun getEmails(): List<Email> {
@@ -45,7 +43,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
         val response: ResponseEntity<List<Email>> = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY)
-        return response.body ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return response.body ?: throw NoSuchElementException()
     }
 
     fun getPublicEmails(): List<Email> {
@@ -54,7 +52,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
         val response: ResponseEntity<List<Email>> = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY)
-        return response.body ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return response.body ?: throw NoSuchElementException()
     }
 
     fun getFollowers(): List<Follow> {
@@ -63,7 +61,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
         val response: ResponseEntity<List<Follow>> = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY)
-        return response.body ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return response.body ?: throw NoSuchElementException()
     }
 
     fun getFollowers(username: String): List<Follow> {
@@ -72,7 +70,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .buildAndExpand(username)
                 .toUriString()
         val response: ResponseEntity<List<Follow>> = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY)
-        return response.body ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return response.body ?: throw NoSuchElementException()
     }
 
     fun getFollowing(): List<Follow> {
@@ -81,7 +79,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
         val response: ResponseEntity<List<Follow>> = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY)
-        return response.body ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return response.body ?: throw NoSuchElementException()
     }
 
     fun getFollowing(username: String): List<Follow> {
@@ -90,6 +88,6 @@ class GitHubApiClient(private val properties: GitHubProperties,
                 .buildAndExpand(username)
                 .toUriString()
         val response: ResponseEntity<List<Follow>> = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY)
-        return response.body ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return response.body ?: throw NoSuchElementException()
     }
 }
