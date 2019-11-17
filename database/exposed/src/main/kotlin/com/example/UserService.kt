@@ -9,12 +9,11 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class UserService {
 
-    fun findAll(): List<User> =
+    fun selectAll(): List<User> =
             Users.selectAll().map { User(it[Users.id], it[Users.name]) }
 
     fun insert(user: User) =
             Users.insert {
-                it[id] = user.id
                 it[name] = user.name
             }
 }

@@ -1,19 +1,11 @@
 package com.example
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.stereotype.Component
-import org.springframework.validation.annotation.Validated
-import javax.validation.constraints.NotNull
+import org.springframework.boot.context.properties.ConstructorBinding
 
-@Component
+@ConstructorBinding
 @ConfigurationProperties(prefix = "github")
-@Validated
-class GitHubProperties {
-    @NotNull
-    var userScope: UserScope = UserScope()
+data class GitHubProperties(val userScope: UserScope) {
 
-    class UserScope {
-        @NotNull
-        lateinit var token: String
-    }
+    data class UserScope(val token: String)
 }

@@ -18,11 +18,11 @@ class GitHubApiClient(private val properties: GitHubProperties,
     private val restTemplate = builder.build()
 
     companion object {
-        private const val API_ENDPOINT = "https://api.github.com"
+        private const val BASE_URL = "https://api.github.com"
     }
 
     fun getUser(): User {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/user")
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
@@ -30,7 +30,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getUser(username: String): User {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/users/{username}")
                 .buildAndExpand(username)
                 .toUriString()
@@ -38,7 +38,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getEmails(): List<Email> {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/user/emails")
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
@@ -47,7 +47,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getPublicEmails(): List<Email> {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/user/public_emails")
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
@@ -56,7 +56,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getFollowers(): List<Follow> {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/user/followers")
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
@@ -65,7 +65,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getFollowers(username: String): List<Follow> {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/users/{username}/followers")
                 .buildAndExpand(username)
                 .toUriString()
@@ -74,7 +74,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getFollowing(): List<Follow> {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/user/following")
                 .queryParam("access_token", properties.userScope.token)
                 .toUriString()
@@ -83,7 +83,7 @@ class GitHubApiClient(private val properties: GitHubProperties,
     }
 
     fun getFollowing(username: String): List<Follow> {
-        val url = UriComponentsBuilder.fromHttpUrl(API_ENDPOINT)
+        val url = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .path("/users/{username}/following")
                 .buildAndExpand(username)
                 .toUriString()

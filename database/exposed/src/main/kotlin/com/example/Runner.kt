@@ -9,10 +9,10 @@ class Runner(private val userService: UserService) : ApplicationListener<Applica
 
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
         for (i in 1..5) {
-            userService.insert(User(i, "name$i"))
+            userService.insert(User(0, "name$i"))
         }
 
-        userService.findAll().forEach {
+        userService.selectAll().forEach {
             println(it)
         }
     }
