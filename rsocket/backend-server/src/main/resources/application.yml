@@ -1,0 +1,11 @@
+server:
+  port: 7777
+spring:
+  rsocket:
+    server:
+      address: localhost
+      port: 7777
+      transport: tcp
+  output:
+    ansi:
+      enabled: always

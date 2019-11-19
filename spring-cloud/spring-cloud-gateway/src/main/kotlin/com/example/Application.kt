@@ -13,6 +13,7 @@ import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
 
+
 @SpringBootApplication
 class Application {
 
