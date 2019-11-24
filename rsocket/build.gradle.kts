@@ -6,6 +6,12 @@ plugins {
     kotlin("plugin.spring") version "1.3.50"
 }
 
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
 subprojects {
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
@@ -15,10 +21,6 @@ subprojects {
     group = "com.example"
     version = "0.0.1-SNAPSHOT"
     java.sourceCompatibility = JavaVersion.VERSION_1_8
-
-    repositories {
-        mavenCentral()
-    }
 
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-webflux")

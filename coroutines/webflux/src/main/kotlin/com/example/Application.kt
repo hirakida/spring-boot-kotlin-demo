@@ -24,8 +24,10 @@ class Application {
 
     @Bean
     fun routes() = coRouter {
-        GET("/users", ::findAll)
-        GET("/users/{id}", ::findOne)
+        "/users".nest {
+            GET("/", ::findAll)
+            GET("/{id}", ::findOne)
+        }
     }
 
     suspend fun findAll(request: ServerRequest): ServerResponse {
