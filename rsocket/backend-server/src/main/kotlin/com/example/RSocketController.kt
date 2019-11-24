@@ -7,7 +7,6 @@ import java.time.Duration
 import java.time.Instant
 import java.util.stream.Stream
 
-
 data class GreetingRequest(val name: String)
 data class GreetingResponse(val message: String)
 

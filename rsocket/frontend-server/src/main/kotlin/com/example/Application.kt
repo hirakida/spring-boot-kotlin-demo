@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.router
 
-
 data class GreetingRequest(val name: String)
 data class GreetingResponse(val message: String)
 
