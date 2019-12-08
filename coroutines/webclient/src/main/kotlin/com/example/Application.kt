@@ -1,6 +1,5 @@
 package com.example
 
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -28,24 +27,20 @@ class Application {
 class UserController(private val webClient: WebClient) {
 
     @GetMapping("/users")
-    suspend fun findAll(): Flow<User> {
-        delay(1000)
-        return webClient.get()
-                .uri("/internal/users")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToFlow()
-    }
+    suspend fun findAll(): Flow<User> =
+            webClient.get()
+                    .uri("/internal/users")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToFlow()
 
     @GetMapping("/users/{id}")
-    suspend fun findOne(@PathVariable id: Int): User {
-        delay(1000)
-        return webClient.get()
-                .uri("/internal/users/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .awaitBody()
-    }
+    suspend fun findOne(@PathVariable id: Int): User =
+            webClient.get()
+                    .uri("/internal/users/{id}", id)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .awaitBody()
 }
 
 @RestController
