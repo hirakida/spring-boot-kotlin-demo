@@ -1,7 +1,8 @@
 package com.example
 
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.runBlocking
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -31,10 +32,8 @@ class Application {
 
     suspend fun findAll(request: ServerRequest): ServerResponse {
         delay(1000)
-        return ok().bodyAndAwait(
-                flowOf(User(1, "name1"),
-                        User(2, "name2"),
-                        User(3, "name3")))
+        val users: Flow<User> = (1..5).map { User(it, "name$it") }.asFlow()
+        return ok().bodyAndAwait(users)
     }
 
     suspend fun findOne(request: ServerRequest): ServerResponse {

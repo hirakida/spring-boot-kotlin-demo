@@ -1,5 +1,6 @@
 package com.example
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.springframework.data.domain.Sort.Order.asc
 import org.springframework.data.r2dbc.core.DatabaseClient
@@ -15,14 +16,14 @@ import org.springframework.stereotype.Component
 @Component
 class UserRepository(private val client: DatabaseClient) {
 
-    suspend fun findAll() =
+    suspend fun findAll(): Flow<User> =
             client.select()
                     .from<User>()
                     .orderBy(asc("id"))
                     .fetch()
                     .flow()
 
-    suspend fun findOne(id: Int) =
+    suspend fun findOne(id: Int): User? =
             client.select()
                     .from<User>()
                     .matching(where("id").`is`(id))

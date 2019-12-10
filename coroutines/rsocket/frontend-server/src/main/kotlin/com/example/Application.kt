@@ -1,5 +1,6 @@
 package com.example
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -25,7 +26,7 @@ class Application {
             coRouter {
                 GET("/greetings/{name}") {
                     val request = GreetingRequest(it.pathVariable("name"))
-                    val greetings = requester.route("greetings")
+                    val greetings: Flow<String> = requester.route("greetings")
                             .data(request)
                             .retrieveFlow<GreetingResponse>()
                             .map { response -> response.message }
