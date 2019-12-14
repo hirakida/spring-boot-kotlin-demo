@@ -17,8 +17,6 @@ import org.springframework.web.reactive.function.server.bodyAndAwait
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.coRouter
 
-data class User(val id: Int, val message: String)
-
 @SpringBootApplication
 class Application {
 
@@ -30,13 +28,13 @@ class Application {
         }
     }
 
-    suspend fun findAll(request: ServerRequest): ServerResponse {
+    private suspend fun findAll(request: ServerRequest): ServerResponse {
         delay(1000)
         val users: Flow<User> = (1..5).map { User(it, "name$it") }.asFlow()
         return ok().bodyAndAwait(users)
     }
 
-    suspend fun findOne(request: ServerRequest): ServerResponse {
+    private suspend fun findOne(request: ServerRequest): ServerResponse {
         delay(1000)
         val id = request.pathVariable("id").toInt()
         return ok().bodyValueAndAwait(User(id, "name$id"))

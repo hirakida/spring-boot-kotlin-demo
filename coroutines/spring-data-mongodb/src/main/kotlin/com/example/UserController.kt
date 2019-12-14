@@ -1,5 +1,6 @@
 package com.example
 
+import kotlinx.coroutines.flow.Flow
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController
 class UserController(private val userRepository: UserRepository) {
 
     @GetMapping("/users")
-    suspend fun findAll() = userRepository.findAll()
+    suspend fun findAll(): Flow<User> = userRepository.findAll()
 
     @GetMapping("/users/{id}")
-    suspend fun findOne(@PathVariable id: String) = userRepository.findOne(id)
+    suspend fun findOne(@PathVariable id: String): User = userRepository.findOne(id)
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)

@@ -21,11 +21,7 @@ class Application(private val operator: TransactionalOperator,
     @EventListener(ApplicationReadyEvent::class)
     fun readyEvent() = runBlocking {
         operator.executeAndAwait {
-            userRepository.insert(User(1, "name1"))
-            userRepository.insert(User(2, "name2"))
-            userRepository.insert(User(3, "name3"))
-            userRepository.insert(User(4, "name4"))
-            userRepository.insert(User(5, "name5"))
+            (1..5).forEach { userRepository.insert(User(it, "name$it")) }
         }
 
         userRepository.findAll()
