@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserController(private val userRepository: UserRepository) {
+class UserController(private val repository: UserRepository) {
 
     @GetMapping("/users")
-    suspend fun findAll(): Flow<User> = userRepository.findAll()
+    suspend fun findAll(): Flow<User> = repository.findAll()
 
     @GetMapping("/users/{id}")
-    suspend fun findOne(@PathVariable id: String): User = userRepository.findOne(id)
+    suspend fun findOne(@PathVariable id: String): User = repository.findOne(id)
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     suspend fun create(@RequestBody user: User) {
-        userRepository.insert(user)
+        repository.insert(user)
     }
 
     @PutMapping("/users/{id}")
     suspend fun update(@PathVariable id: String, @RequestBody user: User) {
-        userRepository.update(user)
+        repository.update(user)
     }
 }

@@ -1,9 +1,9 @@
 rootProject.name = "spring-boot-coroutines-demo"
 include(
+        "r2dbc",
+        "reactive-mongodb",
         "rsocket:backend-server",
         "rsocket:frontend-server",
-        "spring-data-mongodb",
-        "spring-data-r2dbc",
         "webclient",
         "webflux",
         "webflux.fn"
