@@ -4,23 +4,25 @@ import org.springframework.boot.WebApplicationType
 import org.springframework.boot.logging.LogLevel
 import org.springframework.fu.kofu.application
 import org.springframework.fu.kofu.webmvc.webMvc
-import org.springframework.http.MediaType
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
-import java.time.LocalDateTime
+import org.springframework.web.servlet.function.ServerResponse.ok
 
 val app = application(WebApplicationType.SERVLET) {
     logging {
         level = LogLevel.INFO
     }
     beans {
-        bean<MainHandler>()
+        bean<HelloHandler>()
+        bean<UserHandler>()
     }
     webMvc {
         port = if (profiles.contains("test")) 8181 else 8080
         router {
-            val handler = ref<MainHandler>()
-            GET("/", handler::dateTime)
+            val helloHandler = ref<HelloHandler>()
+            val userHandler = ref<UserHandler>()
+            GET("/", helloHandler::hello)
+            GET("/users", userHandler::findAll)
         }
         converters {
             string()
@@ -29,13 +31,19 @@ val app = application(WebApplicationType.SERVLET) {
     }
 }
 
+data class User(val id: Int, val name: String)
+
 @Suppress("UNUSED_PARAMETER")
-class MainHandler {
-    fun dateTime(request: ServerRequest) =
-            ServerResponse
-                    .ok()
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(mapOf("dateTime" to LocalDateTime.now()))
+class HelloHandler {
+    fun hello(request: ServerRequest) = ok().body("Hello, Spring Fu!")
+}
+
+@Suppress("UNUSED_PARAMETER")
+class UserHandler {
+    fun findAll(request: ServerRequest): ServerResponse {
+        val users = (1..5).map { User(it, "name$it") }
+        return ok().body(users)
+    }
 }
 
 fun main() {
