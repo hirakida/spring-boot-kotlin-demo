@@ -7,12 +7,6 @@ import org.springframework.web.reactive.function.server.ServerResponse.ok
 import reactor.core.publisher.Mono
 
 @Suppress("UNUSED_PARAMETER")
-class HelloHandler {
-    fun hello(request: ServerRequest): Mono<ServerResponse> =
-            ok().bodyValue("Hello, Spring Fu!")
-}
-
-@Suppress("UNUSED_PARAMETER")
 class UserHandler(private val userService: UserService) {
     fun findAll(request: ServerRequest): Mono<ServerResponse> =
             ok().body(fromValue(userService.findAll()))
