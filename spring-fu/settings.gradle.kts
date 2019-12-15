@@ -14,4 +14,8 @@ pluginManagement {
 }
 
 rootProject.name = "spring-fu-demo"
-include("reactive-mongodb", "reactive-mongodb-coroutines", "webflux", "webmvc")
+include("reactive-mongodb",
+        "reactive-mongodb-coroutines",
+        "reactive-redis",
+        "webflux",
+        "webmvc")
