@@ -14,17 +14,17 @@ class UserController(private val webClient: WebClient) {
 
     @GetMapping("/users")
     suspend fun findAll(): Flow<User> =
-            webClient.get()
-                    .uri("/internal/users")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlow()
+        webClient.get()
+            .uri("/internal/users")
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .bodyToFlow()
 
     @GetMapping("/users/{id}")
     suspend fun findOne(@PathVariable id: Int): User =
-            webClient.get()
-                    .uri("/internal/users/{id}", id)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .awaitBody()
+        webClient.get()
+            .uri("/internal/users/{id}", id)
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .awaitBody()
 }

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.messaging.rsocket.RSocketRequester
+import org.springframework.messaging.rsocket.connectTcpAndAwait
 import org.springframework.messaging.rsocket.retrieveFlow
 import org.springframework.web.reactive.function.server.bodyAndAwait
 import org.springframework.web.reactive.function.server.coRouter
@@ -16,23 +17,23 @@ data class GreetingResponse(val message: String)
 
 @SpringBootApplication
 class Application {
+    private var requester: RSocketRequester? = null
 
     @Bean
-    fun rSocketRequester(builder: RSocketRequester.Builder) =
-            builder.connectTcp("localhost", 7777).block()
-
-    @Bean
-    fun route(requester: RSocketRequester) =
-            coRouter {
-                GET("/greetings/{name}") {
-                    val request = GreetingRequest(it.pathVariable("name"))
-                    val greetings: Flow<String> = requester.route("greetings")
-                            .data(request)
-                            .retrieveFlow<GreetingResponse>()
-                            .map { response -> response.message }
-                    ok().sse().bodyAndAwait(greetings)
-                }
+    fun route(builder: RSocketRequester.Builder) =
+        coRouter {
+            GET("/greetings/{name}") {
+                val request = GreetingRequest(it.pathVariable("name"))
+                val greetings: Flow<String> = requester(builder).route("greetings")
+                    .data(request)
+                    .retrieveFlow<GreetingResponse>()
+                    .map { response -> response.message }
+                ok().sse().bodyAndAwait(greetings)
             }
+        }
+
+    suspend fun requester(builder: RSocketRequester.Builder): RSocketRequester =
+        requester ?: builder.connectTcpAndAwait("localhost", 7000).also { requester = it }
 }
 
 fun main(args: Array<String>) {

@@ -1,6 +1,9 @@
 server:
-  port: 9999
+  port: 8080
 spring:
   output:
     ansi:
       enabled: always
+management:
+  server:
+    port: 8081

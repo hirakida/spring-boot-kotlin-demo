@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 
 @Suppress("UNUSED_PARAMETER")
 class UserHandler(private val repository: UserRepository) {
-    suspend fun findAll(request: ServerRequest) =
+    suspend fun findAll(request: ServerRequest): ServerResponse =
             ok().bodyAndAwait(repository.findAll())
 
     suspend fun findById(request: ServerRequest): ServerResponse {

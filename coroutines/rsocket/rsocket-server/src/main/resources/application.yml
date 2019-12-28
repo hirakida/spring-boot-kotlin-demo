@@ -4,7 +4,7 @@ spring:
   rsocket:
     server:
       address: localhost
-      port: 7777
+      port: 7000
       transport: tcp
   output:
     ansi:

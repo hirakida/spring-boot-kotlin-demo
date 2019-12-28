@@ -12,48 +12,52 @@ import org.springframework.security.config.Customizer
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.server.SecurityWebFilterChain
 
 @SpringBootApplication
 class Application {
 
     @Bean
-    fun authorization(http: ServerHttpSecurity) =
-            http.httpBasic(Customizer.withDefaults())
-                    .csrf { it.disable() }
-                    .authorizeExchange {
-                        it.pathMatchers("/proxy").authenticated()
-                                .anyExchange().permitAll()
-                    }
-                    .build()
+    fun authorization(http: ServerHttpSecurity): SecurityWebFilterChain =
+        http.httpBasic(Customizer.withDefaults())
+            .csrf { it.disable() }
+            .authorizeExchange {
+                it.pathMatchers("/proxy").authenticated()
+                    .anyExchange().permitAll()
+            }
+            .build()
 
     @Bean
-    fun authentication() =
-            MapReactiveUserDetailsService(
-                    User.withDefaultPasswordEncoder()
-                            .username("user1")
-                            .password("pass1")
-                            .roles("USER", "ADMIN")
-                            .build())
+    fun authentication(passwordEncoder: PasswordEncoder) =
+        MapReactiveUserDetailsService(
+            User.withUsername("user1")
+                .password(passwordEncoder.encode("pass1"))
+                .roles("USER", "ADMIN")
+                .build()
+        )
+
+    @Bean
+    fun passwordEncoder() = BCryptPasswordEncoder()
 
     @Bean
     fun redisRateLimiter() = RedisRateLimiter(5, 10)
 
     @Bean
     fun gateway(rlb: RouteLocatorBuilder, redisRateLimiter: RedisRateLimiter) =
-            rlb.routes {
-                route {
-                    path("/proxy")
-                    filters {
-                        setPath("/users")
-                        addResponseHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
-                        requestRateLimiter {
-                            it.rateLimiter = redisRateLimiter
-                        }
+        rlb.routes {
+            route {
+                path("/actuator/**")
+                filters {
+                    addResponseHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                    requestRateLimiter {
+                        it.rateLimiter = redisRateLimiter
                     }
-                    uri("http://localhost:8080")
                 }
+                uri("http://localhost:8081")
             }
+        }
 }
 
 fun main(args: Array<String>) {
