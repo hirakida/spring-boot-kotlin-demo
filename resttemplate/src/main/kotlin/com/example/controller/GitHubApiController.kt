@@ -1,5 +1,6 @@
-package com.example
+package com.example.controller
 
+import com.example.GitHubApiClient
 import com.example.model.Email
 import com.example.model.Follow
 import com.example.model.User
