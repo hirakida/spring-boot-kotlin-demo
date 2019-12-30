@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "github.user-scope.token",
+      "type": "java.lang.String",
+      "description": "Access Token.",
+      "defaultValue": ""
+    }
+  ]
+}

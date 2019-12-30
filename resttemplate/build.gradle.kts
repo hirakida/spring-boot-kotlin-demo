@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+//    compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -35,5 +36,23 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs = listOf("-Xjsr305=strict")
+    }
+}
+
+//tasks {
+//    compileJava {
+//        dependsOn(processResources)
+//    }
+//    compileKotlin {
+//        dependsOn(processResources)
+//    }
+//}
+
+kapt {
+    arguments {
+        arg(
+            "org.springframework.boot.configurationprocessor.additionalMetadataLocations",
+            "$projectDir/src/main/resources"
+        )
     }
 }
