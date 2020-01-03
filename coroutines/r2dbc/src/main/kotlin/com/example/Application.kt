@@ -12,20 +12,22 @@ import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.transaction.reactive.executeAndAwait
 
 @SpringBootApplication
-class Application(private val operator: TransactionalOperator,
-                  private val userRepository: UserRepository) {
+class Application(
+    private val transactionalOperator: TransactionalOperator,
+    private val userRepository: UserRepository
+) {
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.java)
     }
 
     @EventListener(ApplicationReadyEvent::class)
     fun readyEvent() = runBlocking {
-        operator.executeAndAwait {
+        transactionalOperator.executeAndAwait {
             (1..5).forEach { userRepository.insert(User(it, "name$it")) }
         }
 
         userRepository.findAll()
-                .collect { log.info("$it") }
+            .collect { log.info("$it") }
     }
 }
 

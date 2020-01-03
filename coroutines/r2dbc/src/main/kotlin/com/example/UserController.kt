@@ -17,11 +17,11 @@ import org.springframework.web.server.ResponseStatusException
 class UserController(private val repository: UserRepository) {
 
     @GetMapping
-    suspend fun findAll() = repository.findAll()
+    fun findAll() = repository.findAll()
 
     @GetMapping("/{id}")
     suspend fun findOne(@PathVariable id: Int) =
-            repository.findOne(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        repository.findOne(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

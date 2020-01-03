@@ -16,43 +16,43 @@ import org.springframework.stereotype.Component
 @Component
 class UserRepository(private val client: DatabaseClient) {
 
-    suspend fun findAll(): Flow<User> =
-            client.select()
-                    .from<User>()
-                    .orderBy(asc("id"))
-                    .fetch()
-                    .flow()
+    fun findAll(): Flow<User> =
+        client.select()
+            .from<User>()
+            .orderBy(asc("id"))
+            .fetch()
+            .flow()
 
     suspend fun findOne(id: Int): User? =
-            client.select()
-                    .from<User>()
-                    .matching(where("id").`is`(id))
-                    .fetch()
-                    .awaitOneOrNull()
+        client.select()
+            .from<User>()
+            .matching(where("id").`is`(id))
+            .fetch()
+            .awaitOneOrNull()
 
     suspend fun insert(user: User) =
-            client.insert()
-                    .into<User>()
-                    .using(user)
-                    .await()
+        client.insert()
+            .into<User>()
+            .using(user)
+            .await()
 
     suspend fun insertUntyped(name: String) =
-            client.insert()
-                    .into("user")
-                    .value("name", name)
-                    .await()
+        client.insert()
+            .into("user")
+            .value("name", name)
+            .await()
 
     suspend fun update(user: User) =
-            client.update()
-                    .table<User>()
-                    .using(user)
-                    .then()
-                    .awaitFirstOrNull()
+        client.update()
+            .table<User>()
+            .using(user)
+            .then()
+            .awaitFirstOrNull()
 
     suspend fun delete(id: Int) =
-            client.delete()
-                    .from<User>()
-                    .matching(where("id").`is`(id))
-                    .then()
-                    .awaitFirstOrNull()
+        client.delete()
+            .from<User>()
+            .matching(where("id").`is`(id))
+            .then()
+            .awaitFirstOrNull()
 }

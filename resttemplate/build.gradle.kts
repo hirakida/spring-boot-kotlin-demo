@@ -55,4 +55,5 @@ kapt {
             "$projectDir/src/main/resources"
         )
     }
+    showProcessorTimings = true
 }
