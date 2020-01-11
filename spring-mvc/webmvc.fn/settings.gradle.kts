@@ -1,1 +1,1 @@
-rootProject.name = "kotlin-webmvc.fn-demo"
+rootProject.name = "webmvc.fn-demo"
