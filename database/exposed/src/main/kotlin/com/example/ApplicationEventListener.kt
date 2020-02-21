@@ -1,17 +1,18 @@
 package com.example
 
 import org.springframework.boot.context.event.ApplicationReadyEvent
-import org.springframework.context.ApplicationListener
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import org.springframework.transaction.support.TransactionTemplate
 
 @Component
-class ReadyEventListener(
+class ApplicationEventListener(
     private val userService: UserService,
     private val transactionTemplate: TransactionTemplate
-) : ApplicationListener<ApplicationReadyEvent> {
+) {
 
-    override fun onApplicationEvent(event: ApplicationReadyEvent) {
+    @EventListener(ApplicationReadyEvent::class)
+    fun readyEvent() {
         val users = (1..5).map { User(0, "name$it") }.toList()
         userService.insert(users)
         userService.selectAll().forEach { println(it) }
