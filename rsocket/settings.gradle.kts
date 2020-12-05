@@ -1,2 +1,3 @@
 rootProject.name = "rsocket-demo"
-include("frontend-server", "backend-server")
+
+include("rsocket-client", "rsocket-tcp-server")
