@@ -1,15 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.2.2.RELEASE" apply false
-    id("io.spring.dependency-management") version "1.0.8.RELEASE"
-    kotlin("jvm") version "1.3.61"
-    kotlin("plugin.spring") version "1.3.61"
+    id("org.springframework.boot") version "2.4.0" apply false
+    id("io.spring.dependency-management") version "1.0.10.RELEASE"
+    kotlin("jvm") version "1.4.10"
+    kotlin("plugin.spring") version "1.4.10"
 }
 
 allprojects {
     repositories {
         mavenCentral()
+        maven { url = uri("https://repo.spring.io/milestone") }
     }
 }
 
@@ -23,7 +24,7 @@ subprojects {
     version = "0.0.1-SNAPSHOT"
     java.sourceCompatibility = JavaVersion.VERSION_11
 
-    extra["springCloudVersion"] = "Hoxton.SR1"
+    extra["springCloudVersion"] = "2020.0.0-M6"
 
     dependencyManagement {
         imports {
@@ -32,23 +33,21 @@ subprojects {
     }
 
     dependencies {
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-        testImplementation("org.springframework.boot:spring-boot-starter-test") {
-            exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-        }
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
