@@ -30,6 +30,7 @@ data class User(
         val email: String?,
         val bio: String?,
         val hireable: Boolean?,
+        val twitterUsername: String?,
         val publicRepos: Long,
         val publicGists: Long,
         val followers: Long,
