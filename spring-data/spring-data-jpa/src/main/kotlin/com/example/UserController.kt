@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.context.request.WebRequest
 import java.net.URI
 import javax.persistence.EntityNotFoundException
 import javax.validation.constraints.NotEmpty
 
 @RestController
-class UserApiController(private val userService: UserService) {
-
+class UserController(private val userService: UserService) {
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.java)
     }
@@ -54,11 +52,13 @@ class UserApiController(private val userService: UserService) {
     }
 
     @ExceptionHandler(EntityNotFoundException::class, NoSuchElementException::class)
-    fun handleNotFoundException(e: RuntimeException, request: WebRequest): ResponseEntity<Any> {
+    fun handleNotFoundException(e: RuntimeException): ResponseEntity<Any> {
         log.warn(e.message, e)
         return ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
-    data class Request(@field:NotEmpty val name: String,
-                       @field:Range(min = 20, max = 60) val age: Byte)
+    data class Request(
+        @field:NotEmpty val name: String,
+        @field:Range(min = 20, max = 60) val age: Byte
+    )
 }

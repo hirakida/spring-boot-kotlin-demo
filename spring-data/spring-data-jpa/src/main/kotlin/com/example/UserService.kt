@@ -7,7 +7,8 @@ class UserService(private val userRepository: UserRepository) {
 
     fun findAll(): List<User> = userRepository.findAll()
 
-    fun findById(id: Int): User = userRepository.findById(id).orElseThrow { NoSuchElementException() }
+    fun findById(id: Int): User =
+        userRepository.findById(id).orElseThrow { NoSuchElementException() }
 
     fun create(user: User): User {
         return userRepository.save(user)
