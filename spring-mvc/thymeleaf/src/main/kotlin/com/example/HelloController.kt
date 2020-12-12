@@ -10,7 +10,7 @@ import java.time.OffsetDateTime
 import java.time.ZonedDateTime
 
 @Controller
-class RootController {
+class HelloController {
     private val clock: Clock = Clock.systemDefaultZone()
 
     @GetMapping("/")

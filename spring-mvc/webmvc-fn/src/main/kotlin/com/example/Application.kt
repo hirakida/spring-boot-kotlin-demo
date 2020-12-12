@@ -8,7 +8,6 @@ import org.springframework.web.servlet.function.router
 
 @SpringBootApplication
 class Application {
-
     @Bean
     fun routes(handler: UserHandler) = router {
         accept(MediaType.APPLICATION_JSON).nest {
