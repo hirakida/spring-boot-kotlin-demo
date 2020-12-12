@@ -10,7 +10,6 @@ class ApplicationEventListener(
     private val userService: UserService,
     private val transactionTemplate: TransactionTemplate
 ) {
-
     @EventListener(ApplicationReadyEvent::class)
     fun readyEvent() {
         val users = (1..5).map { User(0, "name$it") }.toList()
